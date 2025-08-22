@@ -20,6 +20,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -30,6 +31,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,6 +46,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -51,19 +54,23 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.sendmoney.R
 import com.example.sendmoney.ui.theme.PurpleGrey40
 import com.example.sendmoney.ui.theme.SendMoneyAppTheme
+import com.example.sendmoney.utils.LanguageManager
 
 @Composable
+@SuppressLint("LocalContextConfigurationRead")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 fun LoginScreen(navController: NavController?, viewModel: LoginViewModel?) {
     var username by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     val context = LocalContext.current
+    val locale = context.resources.configuration.locales[0].language
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
 
@@ -93,7 +100,26 @@ fun LoginScreen(navController: NavController?, viewModel: LoginViewModel?) {
                             }
                         }
                     }) {
-                        Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, contentDescription = "Back", tint = Color.White)
+                        val currentLayoutDirection = LocalLayoutDirection.current
+                        val backIcon = if (currentLayoutDirection == LayoutDirection.Rtl) {
+                            Icons.AutoMirrored.Filled.KeyboardArrowRight
+                        } else {
+                            Icons.AutoMirrored.Filled.KeyboardArrowLeft
+                        }
+                        Icon(backIcon, contentDescription = "Back", tint = Color.White)
+                    }
+                },
+                actions = {
+                    val (buttonText, nextLocale) = if (locale == "en") {
+                        "🇸🇦 AR" to "ar"
+                    } else {
+                        "🇺🇸 EN" to "en"
+                    }
+                    TextButton(onClick = {
+                        LanguageManager.setLocale(nextLocale)
+                        LanguageManager.applyLocale(context, nextLocale)
+                    }) {
+                        Text(buttonText, color = Color.White)
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
