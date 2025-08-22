@@ -13,14 +13,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,6 +32,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -57,9 +61,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.sendmoney.data.models.Service
-import com.example.sendmoney.data.models.Provider
 import com.example.sendmoney.R
+import com.example.sendmoney.data.models.Provider
+import com.example.sendmoney.data.models.Service
 import com.example.sendmoney.data.repository.RequestRepository
 import com.example.sendmoney.data.repository.ServicesRepository
 import com.example.sendmoney.db.AppDatabase
@@ -68,10 +72,6 @@ import com.example.sendmoney.ui.theme.SendMoneyAppTheme
 import com.example.sendmoney.utils.LanguageManager
 import kotlinx.coroutines.flow.collectLatest
 import java.util.Calendar
-import kotlin.collections.set
-import kotlin.text.isEmpty
-import kotlin.text.matches
-import kotlin.text.toDoubleOrNull
 
 @SuppressLint("LocalContextConfigurationRead")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -161,7 +161,14 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                         .menuAnchor(),
                     colors = TextFieldDefaults.colors(
                         focusedTextColor = Color.Black,
-                    ))
+                    ),
+                    trailingIcon = {
+                        Icon(
+                            imageVector = Icons.Filled.KeyboardArrowDown,
+                            contentDescription = stringResource(R.string.select_service)
+                        )
+                    }
+                )
 
                 ExposedDropdownMenu(
                     expanded = serviceExpanded,
@@ -198,8 +205,13 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                             .menuAnchor(),
                         colors = TextFieldDefaults.colors(
                             focusedTextColor = Color.Black,
-                        )
-
+                        ),
+                        trailingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.KeyboardArrowDown,
+                                contentDescription = stringResource(R.string.select_provider)
+                            )
+                        }
                     )
                     ExposedDropdownMenu(
                         expanded = providerExpanded,
@@ -341,12 +353,16 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                         showValidationError = fields.isEmpty()
                     }
                 },
-                modifier = Modifier.fillMaxWidth()
+                shape = MaterialTheme.shapes.small,
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1E55F6)),
+                modifier = Modifier.fillMaxWidth().padding(start = 80.dp, end = 80.dp, top = 32.dp, bottom = 32.dp),
             ) {
-                Text(stringResource(R.string.submit))
+                Text(
+                    modifier = Modifier.padding(6.dp),
+                    text = stringResource(R.string.submit))
             }
             Spacer(modifier = Modifier.height(8.dp))
-
+            // Language Switch Button removed from here
             if(showValidationError){
                 AlertDialog(
                     onDismissRequest = { showValidationError = false},
@@ -364,16 +380,14 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                     onDismissRequest = {
                         viewModel.setSavedValue(false)
                         showSuccess = false
-                       // navController.navigate("saved")
-                                       },
+                        navController.navigate("savedRequests") },
                     title = { Text(stringResource(R.string.success)) },
                     text = { Text(stringResource(R.string.request_saved)) },
                     confirmButton = {
                         Button(onClick = {
                             viewModel.setSavedValue(false)
                             showSuccess = false
-                           // navController.navigate("saved")
-                        }) {
+                            navController.navigate("savedRequests") }) {
                             Text(stringResource(R.string.close))
                         }
                     }
@@ -386,10 +400,8 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
 @Preview(name = "Send Money Screen", showBackground = true)
 @Composable
 fun SendMoneyScreenPreview() {
-    val servicesRepository = ServicesRepository(LocalContext.current)
-    val requestRepository =
-        RequestRepository(AppDatabase.getDatabase(LocalContext.current)
-            .requestDao())
+    val servicesRepository = ServicesRepository( LocalContext.current)
+    val requestRepository = RequestRepository(AppDatabase.getDatabase(LocalContext.current).requestDao())
     val sendMoneyViewModel: SendMoneyViewModel = viewModel(
         factory = SendMoneyViewModelFactory(
             servicesRepository,

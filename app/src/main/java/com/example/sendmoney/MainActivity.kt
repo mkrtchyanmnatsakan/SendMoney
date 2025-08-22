@@ -16,6 +16,9 @@ import com.example.sendmoney.data.repository.ServicesRepository
 import com.example.sendmoney.db.AppDatabase
 import com.example.sendmoney.ui.login.LoginScreen
 import com.example.sendmoney.ui.login.LoginViewModel
+import com.example.sendmoney.ui.savedRequests.SavedRequestsScreen
+import com.example.sendmoney.ui.savedRequests.SavedViewModel
+import com.example.sendmoney.ui.savedRequests.SavedViewModelFactory
 import com.example.sendmoney.ui.sendMoney.SendMoneyScreen
 import com.example.sendmoney.ui.sendMoney.SendMoneyViewModel
 import com.example.sendmoney.ui.sendMoney.SendMoneyViewModelFactory
@@ -45,6 +48,12 @@ class MainActivity : ComponentActivity() {
                                 )
                             )
                             SendMoneyScreen(sendMoneyViewModel, navController)
+                        }
+                        composable("savedRequests") {
+                            val savedViewModel: SavedViewModel = viewModel(
+                                factory = SavedViewModelFactory(requestRepository)
+                            )
+                            SavedRequestsScreen(savedViewModel, navController)
                         }
                     }
                 }
