@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.androidx.navigation) // For Navigation Compose
+    alias(libs.plugins.androidx.room) // For Room database
+    id("kotlin-kapt")
 
 }
 
@@ -18,6 +20,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
 
     buildTypes {
@@ -55,6 +61,10 @@ dependencies {
     implementation(libs.androidx.navigation.compose) // Navigation
     implementation(libs.androidx.appcompat)
     implementation(libs.google.accompanist)
+    implementation(libs.androidx.room.runtime) // Room
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler) // Room annotation processor
+    implementation(libs.kotlinx.serialization.json) // Serialization
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

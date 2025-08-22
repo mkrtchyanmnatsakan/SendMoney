@@ -1,0 +1,751 @@
+{
+  "title": {
+    "en": "Send Money",
+    "ar": "إرسال الأموال"
+  },
+  "services": [
+    {
+      "label": {
+        "en": "Bank Transfer"
+      },
+      "name": "bank_transfer",
+      "providers": [
+        {
+          "name": "ABC Bank",
+          "id": "101",
+          "required_fields": [
+            {
+              "label": {
+                "en": "Amount (AED)",
+                "ar": "( غلبملا ( مھرد"
+              },
+              "name": "amount",
+              "placeholder": null,
+              "type": "number",
+              "validation": "",
+              "max_length": "0",
+              "validation_error_message": {
+                "en": "Amount is required",
+                "ar": "المبلغ المطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "Bank Account Number",
+                "ar ": " مقر باسحلا يفرصملا "
+              },
+              "name": "bank_account_number",
+              "placeholder": null,
+              "type": "text",
+              "validation": "^[A-Za-z0-9 ]{1,64}$",
+              "max_length": "64",
+              "validation_error_message": {
+                "en": "Bank account number is required",
+                "ar": "رقم الحساب البنكي مطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "First name",
+                "ar": " مسلاا لولأا "
+              },
+              "name": "firstname",
+              "placeholder": {
+                "en": "Please enter first name",
+                "ar": "الرجاء إدخال الاسم الأول"
+              },
+              "type": "text",
+              "validation": "^[\\s\\S]*",
+              "max_length": "250",
+              "validation_error_message": {
+                "en": "First name is required",
+                "ar": " الاسم الأول مطلوب "
+              }
+
+            },
+            {
+              "label": {
+                "en": "Last name",
+                "ar ": " مسا ةلئاعلا "
+              },
+              "name": "lastname",
+              "placeholder": {
+                "en": "Please enter last name",
+                "ar": "الرجاء إدخال الاسم الأخير"
+              },
+              "type": "text",
+              "validation": "^[\\s\\S]*",
+              "max_length": "250",
+              "validation_error_message": {
+                "en": "Last name is required",
+                "ar": " الاسم الأخير مطلوب "
+              }
+            }
+          ]
+        },
+        {
+          "name": "XYZ Bank",
+          "id": "102",
+          "required_fields": [
+            {
+              "label": {
+                "en": "Amount (AED)",
+                "ar": "( غلبملا ( مھرد"
+              },
+              "name": "amount",
+              "placeholder": {
+                "en": "0.00",
+                "ar": "0.00"
+              },
+              "type": "number",
+              "validation": "",
+              "max_length": "0",
+              "validation_error_message": {
+                "en": "Amount is required",
+                "ar": "المبلغ المطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "Bank Account Number",
+                "ar ": " مقر باسحلا يفرصملا "
+              },
+              "name": "bank_account_number",
+              "placeholder": null,
+              "type": "text",
+              "validation": "^[A-Za-z0-9 ]{1,64}$",
+              "max_length": "64",
+              "validation_error_message": {
+                "en": "Bank account number is required",
+                "ar": "رقم الحساب البنكي مطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "Full Name",
+                "ar": " مسلاا لماكلا "
+              },
+              "name": "full_name",
+              "placeholder": {
+                "en": "Enter full name",
+                "ar": " لخدأ مسلاا لماكلا "
+              },
+              "type": "text",
+              "validation": "^[\\s\\S]*",
+              "max_length": "250",
+              "validation_error_message": {
+                "en": "Full name is required",
+                "ar": " مسلاا لماكلا بولطم "
+              }
+            },
+            {
+              "label": {
+                "en": "Province State",
+                " ةراملإا " :"ar "
+
+              },
+              "name": "province_state",
+              "placeholder": null,
+              "options": [
+                {
+                  "label": "Abu Dhabi",
+                  "name": "abu_dhabi"
+                },
+                {
+                  "label": "Dubai",
+                  "name": "dubai"
+                }
+              ],
+              "type": "option",
+              "validation": "^[\\s\\S]*",
+              "max_length": "0",
+              "validation_error_message": null
+            }
+          ]
+        },
+        {
+          "name": "Global Bank",
+          "id": "103",
+          "required_fields": [
+            {
+              "label": {
+                "en": "Amount (AED)",
+                "ar": "( غلبملا ( مھرد"
+              },
+              "name": "amount",
+              "placeholder": {
+                "en": "0.00",
+                "ar": "0.00"
+              },
+              "type": "number",
+              "validation": "",
+              "max_length": "0",
+              "validation_error_message": {
+                "en": "Amount is required",
+                "ar": "المبلغ المطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "Bank Account Number",
+                " مقر باسحلا يفرصملا " :"ar "
+
+              },
+              "name": "bank_account_number",
+              "placeholder": null,
+              "type": "text",
+              "validation": "^[A-Za-z0-9 ]{1,64}$",
+              "max_length": "64",
+              "validation_error_message": {
+                "en": "Bank account number is required",
+                "ar": "رقم الحساب المصرفي مطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "Date of Birth (YYYY-MM-DD)",
+                "ar": "( خیرات دلایملا ( موی - رھش - ةنس "
+              },
+              "name": "date_of_birth",
+              "placeholder": {
+                "en": "YYYY-MM-DD",
+                "ar": "سنة-شهر-يوم"
+              },
+              "type": "text",
+              "validation": "^(?:19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
+              "max_length": "0",
+              "validation_error_message": {
+                "en": "Date of birth is required",
+                "ar": "تاريخ الميلاد مطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "Gender",
+                "ar": " سنجلا "
+              },
+              "name": "gender",
+              "placeholder": null,
+              "type": "option",
+              "options": [
+                {
+                  "label": "Male",
+                  "name": "M"
+                },
+                {
+                  "label": "Female",
+                  "name": "F"
+                }
+              ],
+
+              "validation": "^[\\s\\S]*",
+              "max_length": "0",
+              "validation_error_message": null
+            }
+          ]
+        },
+        {
+          "name": "First Bank",
+          "id": "104",
+          "required_fields": [
+            {
+              "label": {
+                "en": "Amount (AED)",
+                "ar": "( غلبملا ( مھرد"
+              },
+              "name": "amount",
+              "placeholder": {
+                "en": "0.00",
+                "ar": "0.00"
+              },
+              "type": "number",
+              "validation": "",
+              "max_length": "0",
+              "validation_error_message": {
+                "en": "Amount is required",
+                "ar": "المبلغ المطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "Bank Account Number",
+                "ar": " مقر باسحلا يفرصملا "
+              },
+              "name": "bank_account_number",
+              "placeholder": null,
+              "type": "text",
+              "validation": "^[A-Za-z0-9 ]{1,64}$",
+              "max_length": "64",
+              "validation_error_message": {
+                "en": "Bank account number is required",
+                "ar": "رقم الحساب المصرفي مطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "Last name",
+                "ar": " مسا ةلئاعلا "
+              },
+
+              "name": "lastname",
+              "placeholder": {
+                "en": "Please enter last name",
+                "ar": "الرجاء إدخال الاسم الأخير"
+              },
+              "type": "text",
+              "validation": "^[\\s\\S]*",
+              "max_length": "250",
+              "validation_error_message": {
+                "en": "Last name is required",
+                "ar": "الاسم الأخير مطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "Gender",
+                "ar":" سنجلا "
+              },
+              "name": "gender",
+              "placeholder": null,
+              "type": "option",
+              "options": [
+                {
+                  "label": "Male",
+                  "name": "M"
+                },
+                {
+                  "label": "Female",
+                  "name": "F"
+                }
+              ],
+              "validation": "^[\\s\\S]*",
+              "max_length": "0",
+              "validation_error_message": null
+            }
+          ]
+        },
+        {
+          "name": "United Bank",
+          "id": "105",
+          "required_fields": [
+            {
+              "label": {
+                "en": "Amount (AED)",
+                "ar": "( غلبملا ( مھرد"
+              },
+
+              "name": "amount",
+              "placeholder": {
+                "en": "0.00",
+                "ar": "0.00"
+              },
+              "type": "number",
+              "validation": "",
+              "max_length": "0",
+              "validation_error_message": {
+                "en": "Amount is required",
+                "ar": "المبلغ المطلوب"
+              }
+
+            },
+            {
+              "label": {
+                "en": "Bank Account Number",
+                "ar": " مقر باسحلا يفرصملا "
+              },
+              "name": "bank_account_number",
+              "placeholder": null,
+              "type": "text",
+              "validation": "^[A-Za-z0-9 ]{1,64}$",
+              "max_length": "64",
+              "validation_error_message": {
+                "en": "Bank account number is required",
+                "ar": "رقم الحساب المصرفي مطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "Last name",
+                "ar": " مسا ةلئاعلا "
+              },
+              "name": "lastname",
+              "placeholder": {
+                "en": "Please enter last name",
+                "ar": "الرجاء إدخال الاسم الأخير"
+              },
+              "type": "text",
+              "validation": "^[\\s\\S]*",
+              "max_length": "250",
+              "validation_error_message": {
+                "en": "Last name is required",
+                "ar": "الاسم الأخير مطلوب"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": {
+        "en": "Wallet Transfer"
+      },
+
+      "name": "wallet_transfer",
+      "providers": [
+        {
+          "name": "ABC Wallet",
+          "id": "501",
+          "required_fields": [
+            {
+              "label": {
+                "en": "Amount (AED)",
+                "ar": "( غلبملا ( مھرد"
+              },
+              "name": "amount",
+              "placeholder": {
+                "en": "0.00",
+                "ar": "0.00"
+              },
+              "type": "number",
+              "validation": "",
+              "max_length": "0",
+              "validation_error_message": {
+                "en": "Amount is required",
+                "ar": "المبلغ المطلوب"
+              }
+
+            },
+            {
+              "label": {
+                "en": "Mobile Number",
+                "ar": " مقر فتاھلا كرحتملا "
+              },
+              "name": "msisdn",
+              "placeholder": null,
+              "type": "msisdn",
+              "validation": "^\\+?[1-9][0-9]{6,14}$",
+              "max_length": "14",
+              "validation_error_message": {
+                "en": "Mobile number is required",
+                "ar": "رقم الهاتف المحمول مطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "First name",
+                "ar ": " مسلاا لولأا "
+              },
+              "name": "firstname",
+              "placeholder": {
+                "en": "Please enter first name",
+                "ar": "الرجاء إدخال الاسم الأول"
+              },
+              "type": "text",
+              "validation": "^[\\s\\S]*",
+              "max_length": "250",
+              "validation_error_message": {
+                "en": "First name is required",
+                "ar": "الاسم الأول مطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "Last name",
+                "ar":" مسا ةلئاعلا "
+              },
+              "name": "lastname",
+              "placeholder": {
+                "en": "Please enter last name",
+                "ar": "الرجاء إدخال الاسم الأخير"
+              },
+              "type": "text",
+              "validation": "^[\\s\\S]*",
+              "max_length": "250",
+              "validation_error_message": {
+                "en": "Last name is required",
+                "ar": "الاسم الأخير مطلوب"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Quick Pay",
+          "id": "502",
+          "required_fields": [
+            {
+              "label": {
+                "en": "Amount (AED)",
+                "ar": "( غلبملا ( مھرد"
+              },
+              "name": "amount",
+              "placeholder": {
+                "en": "0.00",
+                "ar": "0.00"
+              },
+              "type": "number",
+              "validation": "",
+              "max_length": "0",
+              "validation_error_message": {
+                "en": "Amount is required",
+                "ar": "المبلغ المطلوب"
+              }
+
+            },
+            {
+              "label": {
+                "en": "Mobile Number",
+                "ar":" مقر فتاھلا كرحتملا "
+              },
+              "name": "msisdn",
+              "placeholder": null,
+              "type": "msisdn",
+
+              "validation": "^\\+?[1-9][0-9]{6,14}$",
+              "max_length": "14",
+              "validation_error_message": {
+                "en": "Mobile number is required",
+                "ar": "رقم الهاتف المحمول مطلوب"
+              }
+            },
+            {
+              "label": {
+                "en": "Full Name",
+                "ar": " مسلاا لماكلا "
+              },
+              "name": "full_name",
+              "placeholder": {
+                "en": "Enter full name",
+                "ar ": " لخدأ مسلاا لماكلا "
+              },
+              "type": "text",
+              "validation": "^[\\s\\S]*",
+              "max_length": "250",
+              "validation_error_message": {
+                "en": "Full name is required",
+                "ar":" مسلاا لماكلا بولطم "
+              }
+            },
+            {
+              "label": {
+                "en": "Gender",
+                " سنجلا " :"ar "
+              },
+              "name": "gender",
+              "placeholder": null,
+              "type": "option",
+              "options": [
+                {
+                  "label": "Male",
+                  "name": "M"
+                },
+                {
+                  "label": "Female",
+                  "name": "F"
+                }
+              ],
+
+              "validation": "^[\\s\\S]*",
+              "max_length": "0",
+              "validation_error_message": null
+            }
+          ]
+        },
+        {
+          "name": "Flash Wallet",
+          "id": "503",
+          "required_fields": [
+            {
+              "label": {
+                "en": "Amount (AED)",
+                "ar": "( غلبملا ( مھرد"
+              },
+              "name": "amount",
+              "placeholder": {
+                "en": "0.00",
+                "ar": "0.00"
+              },
+              "type": "number",
+              "validation": "",
+              "max_length": "0",
+              "validation_error_message": {
+                "en": "Amount is required",
+                "ar":" المبلغ المطلوب "
+              }
+            },
+            {
+              "label": {
+                "en": "Mobile Number",
+                "ar": " مقر فتاھلا كرحتملا "
+              },
+              "name": "msisdn",
+              "placeholder": null,
+              "type": "msisdn",
+              "validation": "^\\+?[1-9][0-9]{6,14}$",
+              "max_length": "14",
+              "validation_error_message": {
+                "en": "Mobile Number is required",
+                "ar":" رقم الهاتف المحمول مطلوب "
+              }
+            },
+            {
+              "label": {
+                "en": "Province State",
+                "ar": " ةراملإا "
+              },
+              "name": "province_state",
+
+              "placeholder": null,
+              "options": [
+                {
+                  "label": "Abu Dhabi",
+                  "name": "abu_dhabi"
+                },
+                {
+                  "label": "Dubai",
+                  "name": "dubai"
+                },
+                {
+                  "label": "Sharjah",
+                  "name": "sharjah"
+                }
+              ],
+              "type": "option",
+              "validation": "^[\\s\\S]*",
+              "max_length": "0",
+              "validation_error_message": null
+            },
+            {
+              "label": {
+                "en": "Full Name",
+                "ar":" مسلاا لماكلا "
+              },
+              "name": "full_name",
+              "placeholder": {
+                "en": "Enter full name",
+                "ar": " لخدأ مسلاا لماكلا "
+              },
+              "type": "text",
+              "validation": "^[\\s\\S]*",
+              "max_length": "250",
+              "validation_error_message": {
+                "en": "Full name is required",
+                "ar": " مسلاا لماكلا بولطم "
+              }
+            }
+          ]
+        },
+
+        {
+          "name": "Smart Pay",
+          "id": "504",
+          "required_fields": [
+            {
+              "label": {
+                "en": "Amount (AED)",
+                "ar": "( غلبملا ( مھرد"
+              },
+              "name": "amount",
+              "placeholder": {
+                "en": "0.00",
+                "ar": "0.00"
+              },
+              "type": "number",
+              "validation": "",
+              "max_length": "0",
+              "validation_error_message": null
+            },
+            {
+              "label": {
+                "en": "Mobile Number",
+                "ar": " مقر فتاھلا كرحتملا "
+              },
+              "name": "msisdn",
+              "placeholder": null,
+              "type": "msisdn",
+              "validation": "^\\+?[1-9][0-9]{6,14}$",
+              "max_length": "14",
+              "validation_error_message": {
+                "en": "Mobile Number is required",
+                "ar": " رقم الهاتف المحمول مطلوب "
+              }
+
+            },
+            {
+              "label": {
+                "en": "Full Name",
+                "ar": " مسلاا لماكلا "
+              },
+              "name": "full_name",
+              "placeholder": {
+                "en": "Enter full name",
+                "ar": " لخدأ مسلاا لماكلا "
+              },
+              "type": "text",
+              "validation": "^[\\s\\S]*",
+
+              "max_length": "250",
+              "validation_error_message": {
+                "en": "Full name is required",
+                "ar": " مسلاا لماكلا بولطم "
+              }
+            }
+          ]
+        },
+        {
+          "name": "Easy Money",
+          "id": "505",
+          "required_fields": [
+            {
+              "label": {
+                "en": "Amount (AED)",
+                "ar": "( غلبملا ( مھرد"
+              },
+              "name": "amount",
+              "placeholder": {
+                "en": "0.00",
+                "ar": "0.00"
+              },
+              "type": "number",
+              "validation": "",
+              "max_length": "0",
+              "validation_error_message": null
+            },
+            {
+              "label": {
+                "en": "Mobile Number",
+                "ar": " مقر فتاھلا كرحتملا "
+
+              },
+              "name": "msisdn",
+              "placeholder": null,
+              "type": "msisdn",
+              "validation": "^\\+?[1-9][0-9]{6,14}$",
+              "max_length": "14",
+              "validation_error_message": {
+                "en": "Mobile Number is required",
+                "ar": " رقم الهاتف المحمول مطلوب "
+              }
+            },
+            {
+              "label": {
+                "en": "Date of Birth (YYYY-MM-DD)",
+                "ar" :"( خیرات دلایملا ( موی - رھش - ةن"
+
+              },
+              "name": "date_of_birth",
+              "placeholder": {
+                "en": "YYYY-MM-DD",
+                "ar": "سنة-شهر-يوم"
+              },
+
+              "type": "text",
+              "validation": "^(?:19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
+            "max_length": "0",
+            "validation_error_message":null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

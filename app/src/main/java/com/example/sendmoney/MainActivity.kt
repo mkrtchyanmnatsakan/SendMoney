@@ -11,8 +11,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.sendmoney.data.repository.RequestRepository
+import com.example.sendmoney.data.repository.ServicesRepository
+import com.example.sendmoney.db.AppDatabase
 import com.example.sendmoney.ui.login.LoginScreen
 import com.example.sendmoney.ui.login.LoginViewModel
+import com.example.sendmoney.ui.sendMoney.SendMoneyScreen
+import com.example.sendmoney.ui.sendMoney.SendMoneyViewModel
+import com.example.sendmoney.ui.sendMoney.SendMoneyViewModelFactory
 import com.example.sendmoney.ui.theme.SendMoneyAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,10 +31,20 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-
+                    val servicesRepository = ServicesRepository(applicationContext)
+                    val requestRepository = RequestRepository(AppDatabase.getDatabase(applicationContext).requestDao())
                     NavHost(navController = navController, startDestination = "login") {
                         composable("login") {
                             LoginScreen(navController, viewModel<LoginViewModel>())
+                        }
+                        composable("sendMoney") {
+                            val sendMoneyViewModel: SendMoneyViewModel = viewModel(
+                                factory = SendMoneyViewModelFactory(
+                                    servicesRepository,
+                                    requestRepository
+                                )
+                            )
+                            SendMoneyScreen(sendMoneyViewModel, navController)
                         }
                     }
                 }

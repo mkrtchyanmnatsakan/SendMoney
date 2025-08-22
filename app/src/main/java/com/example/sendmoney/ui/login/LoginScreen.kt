@@ -30,6 +30,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
@@ -38,6 +40,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -69,6 +72,7 @@ import com.example.sendmoney.utils.LanguageManager
 fun LoginScreen(navController: NavController?, viewModel: LoginViewModel?) {
     var username by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
+    val snackBarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
     val locale = context.resources.configuration.locales[0].language
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -127,6 +131,7 @@ fun LoginScreen(navController: NavController?, viewModel: LoginViewModel?) {
                 )
             )
         },
+        snackbarHost = { SnackbarHost(snackBarHostState) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -177,7 +182,7 @@ fun LoginScreen(navController: NavController?, viewModel: LoginViewModel?) {
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(onDone = {
                     keyboardController?.hide()
-                    viewModel?.login(username, password) { navController?.navigate("main") }
+                    viewModel?.login(username, password) { navController?.navigate("sendMoney") }
                 })
             )
             Spacer(modifier = Modifier.height(4.dp))
@@ -199,20 +204,14 @@ fun LoginScreen(navController: NavController?, viewModel: LoginViewModel?) {
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(onDone = {
                     keyboardController?.hide()
-                    viewModel?.login(username, password) {
-                        Log.d("LoginScreen", "Navigating to main")
-                        //TODO navigate to main
-                    }
+                    viewModel?.login(username, password) { navController?.navigate("sendMoney") }
                 })
             )
 
             Spacer(modifier = Modifier.height(64.dp))
             // Sign in button
             Button(
-                onClick = { viewModel?.login(username, password) {
-                    Log.d("LoginScreen", "Navigating to main")
-                    //TODO navigate to main
-                } },
+                onClick = { viewModel?.login(username, password) { navController?.navigate("sendMoney") } },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp),
