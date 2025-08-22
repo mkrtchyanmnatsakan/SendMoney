@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class SavedViewModel(private val requestRepository: RequestRepository) : ViewModel() {
+class SavedRequestsViewModel(private val requestRepository: RequestRepository) : ViewModel() {
     private val _requests = MutableStateFlow<List<RequestEntity>>(emptyList())
     val requests = _requests.asStateFlow()
 

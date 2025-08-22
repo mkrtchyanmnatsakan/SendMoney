@@ -4,14 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.sendmoney.data.repository.RequestRepository
 
-// Factory for SavedViewModel
-class SavedViewModelFactory(
+// Factory for SavedRequestsViewModel
+class SavedRequestsViewModelFactory(
     private val requestRepository: RequestRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SavedViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(SavedRequestsViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return SavedViewModel(requestRepository) as T
+            return SavedRequestsViewModel(requestRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

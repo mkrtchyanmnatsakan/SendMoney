@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.androidx.navigation) // For Navigation Compose
     alias(libs.plugins.androidx.room) // For Room database
     id("kotlin-kapt")
+    id("jacoco")
 
 }
 
@@ -34,6 +35,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        debug {
+            enableUnitTestCoverage = true
+            enableAndroidTestCoverage = true
         }
     }
     compileOptions {
@@ -66,11 +72,113 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler) // Room annotation processor
     implementation(libs.kotlinx.serialization.json) // Serialization
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk.core)
+    testImplementation(libs.mockito.core) // For unit testing
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.google.truth)
+    testImplementation(libs.cash.turbine) // For Flow testing
+
+    androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+tasks.register("jacocoTestReport", JacocoReport::class) {
+    group = "verification"
+    description = "Generates JaCoCo code coverage reports for the debug build."
+
+    dependsOn("testDebugUnitTest")
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+
+
+    val sourceDirs = files(
+        "$projectDir/src/main/java",
+        "$projectDir/src/main/kotlin"
+    )
+    sourceDirectories.setFrom(sourceDirs)
+
+    val classesDir = fileTree("$buildDir/tmp/kotlin-classes/debug") {
+        exclude(
+            "**/R.class", "**/R$*.class",
+            "**/*Manifest*.*",
+            "**/BR.class",
+            "**/databinding/**/*.*",
+            "**/*_ViewBinding*.*",
+
+            "**/Hilt_*.*",
+            "**/*_HiltModules*.*",
+            "**/Dagger*Component.*",
+            "**/Dagger*Component$*.*",
+            "**/*_Factory.*",
+            "**/*_Factory$*.*",
+            "**/*_MembersInjector.*",
+            "**/*_MembersInjector$*.*",
+            "**/*_Provide*Factory*.*",
+            "**/*_Binds*.*",
+            "**/*_Impl.class",
+            "**/*_Impl$*.*",
+            "**/*_DAO.class",
+            "**/*_DAO_Impl.class",
+            "**/*_DAO_Impl$*.*",
+
+
+            "**/*Kt.class",
+
+
+            "kotlin/**", "kotlinx/**",
+
+            "**/*Test.*", "**/*Test$*.*",
+            "**/*Spec.*", "**/*Spec$*.*",
+            "**/*androidTest*.*",
+            "**/*UnitTest*.*",
+
+
+
+            "**/*Directions.*", "**/*Directions$*.*",
+            "**/*Args.*", "**/*Args$*.*",
+
+            "**/*JsonAdapter.*",
+
+            "**/com/example/sendmoney/generated/**"
+        )
+    }
+    classDirectories.setFrom(classesDir)
+
+    val executionDataFile = "$buildDir/outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec"
+    executionData.setFrom(files(executionDataFile))
+
+    doLast {
+        println("------------------------------------------------------------------------")
+        println("JaCoCo Code Coverage Report Generation")
+        println("------------------------------------------------------------------------")
+        if (reports.html.outputLocation.get().asFile.exists()) {
+            println("HTML report: file://${reports.html.outputLocation.get().asFile}/index.html")
+        } else {
+            println("HTML report was not generated. Check configuration and test execution.")
+        }
+        if (reports.xml.outputLocation.get().asFile.exists()) {
+            println("XML report:  file://${reports.xml.outputLocation.get().asFile}")
+        } else {
+            println("XML report was not generated.")
+        }
+        println("------------------------------------------------------------------------")
+    }
 }

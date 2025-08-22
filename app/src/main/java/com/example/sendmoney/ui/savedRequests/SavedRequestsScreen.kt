@@ -22,7 +22,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -46,7 +45,7 @@ import com.example.sendmoney.utils.LanguageManager
 @SuppressLint("LocalContextConfigurationRead")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SavedRequestsScreen(viewModel: SavedViewModel, navController: NavController) {
+fun SavedRequestsScreen(viewModel: SavedRequestsViewModel, navController: NavController) {
     val requests by viewModel.requests.collectAsState()
     var selectedJson by remember { mutableStateOf<String?>(null) }
     val context = LocalContext.current

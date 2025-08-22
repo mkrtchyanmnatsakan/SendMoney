@@ -25,26 +25,29 @@ class SendMoneyViewModel(
 
     init {
         viewModelScope.launch {
-            _services.value = withContext(Dispatchers.IO) { // Execute on IO thread
+            _services.value = withContext(Dispatchers.IO) {
                 servicesRepository.getServices()
             }
         }
     }
 
 
-    fun saveRequest(serviceName: String, providerName: String, amount: Double,
-                    formData: Map<String, String>) {
+    fun saveRequest(serviceName: String, providerName: String, amount: Double, formData: Map<String, String>) {
         viewModelScope.launch {
-            val jsonDetails = Json.encodeToString(formData)
-            requestRepository.insertRequest(
-                RequestEntity(
-                    serviceName = serviceName,
-                    providerName = providerName,
-                    amount = amount,
-                    jsonDetails = jsonDetails
+            if(serviceName.isNotEmpty() && providerName.isNotEmpty() && amount > 0 && formData.isNotEmpty()){
+                val jsonDetails = Json.encodeToString(formData)
+                requestRepository.insertRequest(
+                    RequestEntity(
+                        serviceName = serviceName,
+                        providerName = providerName,
+                        amount = amount,
+                        jsonDetails = jsonDetails
+                    )
                 )
-            )
-            _isSaved.value = true
+                _isSaved.value = true
+            }else{
+                _isSaved.value = false
+            }
         }
     }
 
