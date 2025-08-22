@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SendMoneyApp</string>
+    <string name="login">Sign in</string>
+    <string name="username">Email*</string>
+    <string name="password">Password</string>
+    <string name="welcome_title">SEND MONEY APP</string>
+    <string name="welcome_message">Welcome to Send Money App!</string>
+    <string name="invalid_username">Invalid username</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="terms_of_service_info">By proceeding you also agree to the Terms of Service
+and Privacy Policy</string>
 </resources>
