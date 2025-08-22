@@ -1,7 +1,6 @@
 package com.example.sendmoney.ui.sendMoney
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.DatePickerDialog
 import android.widget.DatePicker
 import androidx.compose.animation.AnimatedVisibility
@@ -16,14 +15,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -32,13 +28,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -51,12 +43,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -67,9 +56,8 @@ import com.example.sendmoney.data.models.Service
 import com.example.sendmoney.data.repository.RequestRepository
 import com.example.sendmoney.data.repository.ServicesRepository
 import com.example.sendmoney.db.AppDatabase
-import com.example.sendmoney.ui.theme.PurpleGrey40
+import com.example.sendmoney.ui.component.CommonTopAppBarCenter
 import com.example.sendmoney.ui.theme.SendMoneyAppTheme
-import com.example.sendmoney.utils.LanguageManager
 import kotlinx.coroutines.flow.collectLatest
 import java.util.Calendar
 
@@ -94,47 +82,10 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
 
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        text = services.title[locale] ?: stringResource(R.string.app_name),
-                        textAlign = TextAlign.Center,
-                        color = Color.White
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        navController?.popBackStack()?.let {
-                            if (!it) {
-                                (context as? Activity)?.moveTaskToBack(true)
-                            }
-                        }
-                    }) {
-                        val currentLayoutDirection = LocalLayoutDirection.current
-                        val backIcon = if (currentLayoutDirection == LayoutDirection.Rtl) {
-                            Icons.AutoMirrored.Filled.KeyboardArrowRight
-                        } else {
-                            Icons.AutoMirrored.Filled.KeyboardArrowLeft
-                        }
-                        Icon(backIcon, contentDescription = "Back", tint = Color.White)
-                    }
-                },
-                actions = {
-                    val (buttonText, nextLocale) = if (locale == "en") {
-                        "🇸🇦 AR" to "ar"
-                    } else {
-                        "🇺🇸 EN" to "en"
-                    }
-                    TextButton(onClick = {
-                        LanguageManager.setLocale(nextLocale)
-                        LanguageManager.applyLocale(context, nextLocale)
-                    }) {
-                        Text(buttonText, color = Color.White)
-                    }
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = PurpleGrey40
-                )
+            CommonTopAppBarCenter(
+                title = services.title[locale] ?: stringResource(R.string.app_name),
+                navController = navController,
+                currentLocale = locale
             )
         },
     ) { innerPadding ->
