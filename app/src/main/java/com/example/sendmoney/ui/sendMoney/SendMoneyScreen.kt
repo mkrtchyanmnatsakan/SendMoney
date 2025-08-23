@@ -44,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -198,7 +199,10 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                                 colors = TextFieldDefaults.colors(
                                     focusedTextColor = Color.Black,
                                 ),
-                                keyboardOptions = KeyboardOptions(keyboardType = if (field.type == "msisdn") KeyboardType.Phone else KeyboardType.Text)
+                                keyboardOptions = KeyboardOptions(keyboardType = if (field.type
+                                    == "msisdn") KeyboardType.Phone else KeyboardType.Text,
+                                    imeAction = ImeAction.Next),
+
                             )
                         }
                         "number" -> {
@@ -212,7 +216,8 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                                 colors = TextFieldDefaults.colors(
                                     focusedTextColor = Color.Black,
                                 ),
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number,
+                                    imeAction = ImeAction.Next)
                             )
                         }
                         "option" -> {
@@ -247,6 +252,7 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                                 calendar.get(Calendar.MONTH),
                                 calendar.get(Calendar.DAY_OF_MONTH)
                             )
+                            datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
                             TextField(
                                 value = formData[field.name] ?: "",
                                 onValueChange = {},
@@ -271,7 +277,7 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                     }
                     if (errors[field.name] != null) {
                         Text(
-                            text = errors[field.name]!!,
+                            text = errors[field.name]?:"",
                             color = MaterialTheme.colorScheme.error,
                             style = MaterialTheme.typography.bodySmall
                         )
@@ -313,7 +319,7 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                     text = stringResource(R.string.submit))
             }
             Spacer(modifier = Modifier.height(8.dp))
-            // Language Switch Button removed from here
+
             if(showValidationError){
                 AlertDialog(
                     onDismissRequest = { showValidationError = false},
@@ -321,7 +327,7 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                     text = { Text(stringResource(R.string.warning_message)) },
                     confirmButton = {
                         Button(onClick = { showValidationError = false }) {
-                            Text(stringResource(R.string.close))
+                            Text(stringResource(R.string.ok))
                         }
                     }
                 )
@@ -331,7 +337,7 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                     onDismissRequest = {
                         viewModel.setSavedValue(false)
                         showSuccess = false
-                        navController.navigate("savedRequests") },
+                         },
                     title = { Text(stringResource(R.string.success)) },
                     text = { Text(stringResource(R.string.request_saved)) },
                     confirmButton = {
@@ -339,7 +345,14 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                             viewModel.setSavedValue(false)
                             showSuccess = false
                             navController.navigate("savedRequests") }) {
-                            Text(stringResource(R.string.close))
+                            Text(stringResource(R.string.yes))
+                        }
+                    },
+                    dismissButton = {
+                        Button(onClick = {
+                            viewModel.setSavedValue(false)
+                            showSuccess = false }) {
+                            Text(stringResource(R.string.no))
                         }
                     }
                 )

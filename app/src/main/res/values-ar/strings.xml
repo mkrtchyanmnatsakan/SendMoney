@@ -16,8 +16,15 @@
     <string name="error">خطأ</string>
     <string name="ok">نعم</string>
     <string name="warning_message">يجب تحديد الخدمة أو المزود</string>
-    <string name="request_saved">تم حفظ الطلب بنجاح!</string>
+    <string name="request_saved">تم حفظ الطلب بنجاح! هل ترغب بالانتقال إلى "طلبات إرسال الأموال المحفوظة"؟</string>
     <string name="saved_requests">الطلبات المحفوظة</string>
     <string name="request_details">تفاصيل الطلب</string>
     <string name="close">إغلاق</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="view_details">عرض التفاصيل</string>
+    <string name="request_id">معرف الطلب:</string>
+    <string name="service_name">اسم الخدمة:</string>
+    <string name="provider_name">اسم المزود:</string>
+    <string name="amount">كمية:</string>
 </resources>

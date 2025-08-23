@@ -74,7 +74,7 @@ fun LoginScreen(navController: NavController?, viewModel: LoginViewModel?) {
 
         topBar = {
             CommonTopAppBarCenter(
-                title = stringResource(R.string.login), // e.g., R.string.login
+                title = stringResource(R.string.login),
                 navController = navController,
                 currentLocale = locale
             )

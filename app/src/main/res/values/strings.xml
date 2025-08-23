@@ -18,8 +18,16 @@ and Privacy Policy</string>
     <string name="error">Error</string>
     <string name="ok">OK</string>
     <string name="warning_message">Need to select Service or Provider</string>
-    <string name="request_saved">Request saved successfully!</string>
+    <string name="request_saved">Request saved successfully! Would you like to navigate to Saved Send Money Requests?</string>
     <string name="saved_requests">Saved Requests</string>
     <string name="request_details">Request Details</string>
     <string name="close">Close</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="view_details">View Details</string>
+    <string name="request_id">Request ID:</string>
+    <string name="service_name">Service name:</string>
+    <string name="provider_name">Provider name:</string>
+    <string name="amount">Amount:</string>
+    <string name="aed" translatable="false">AED</string>
 </resources>
