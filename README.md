@@ -85,5 +85,25 @@ The app aims to follow **Material Design 3** principles for UI/UX. This includes
     *   Connect an Android device (with USB debugging enabled) or start an Android Emulator.
     *   Click the "Run 'app'" button (green play icon) in Android Studio, or select **Run > Run 'app'**.
 
+## Screenshots
+
+*   *Screenshot 1: Login Screen*
+    * 1 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/login_1.jpeg?raw=true) 
+    * 2 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/login_2.jpeg?raw=true) 
+    * 3 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/login_3.jpeg?raw=true) 
+*   *Screenshot 2: Send Money Screen*
+    * 1 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/send_money_1.jpeg?raw=true) 
+    * 2 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/send_money_2.jpeg?raw=true) 
+    * 3 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/send_money_3.jpeg?raw=true) 
+    * 4 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/send_money_4.jpeg?raw=true) 
+    * 5 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/send_money_5.jpeg?raw=true) 
+    * 6 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/send_money_6.jpeg?raw=true) 
+    * 7 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/send_money_7.jpeg?raw=true) 
+*   *Screenshot 3: Saved Requests Screen*
+    * 1 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/saved_requestes_1.jpeg?raw=true) 
+    * 2 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/saved_requestes_2.jpeg?raw=true) 
+    * 3 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/saved_requestes_3.jpeg?raw=true) 
+
+
 
     
