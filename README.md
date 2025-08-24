@@ -9,7 +9,7 @@ SendMoneyApp is a demo Android application designed to showcase a simplified fin
 *   User Authentication (Mock Login)
 *   Navigation to Send Money Screen
 *   Navigation to Saved Requests Screen
-*   Logout Functionality: Users can securely log out from the app, 
+*   Logout Functionality (additional functionality): Users can securely log out from the app, 
 clearing their session data stored in UserSessionManager. 
 This feature ensures user sessions are terminated properly.
 *   Localization Support:
@@ -69,9 +69,13 @@ The app aims to follow **Material Design 3** principles for UI/UX. This includes
 
 *   **Unit Tests:** JUnit5 is used for writing unit tests for ViewModels (e.g., `LoginViewModelTest`). Dependencies are mocked using **Mockito** (or MockK as per guidelines). The focus is on testing business logic, state changes, and interactions.
 *   **Running Tests:** To run all unit tests from the command line, navigate to the project root and execute:
+  
     ./gradlew test
+    
 *   **Test Coverage Report (JaCoCo):** To generate a test coverage report using JaCoCo, ensure JaCoCo is configured in the build.gradle.kts file. Run the following command from the project root:
+  
     ./gradlew jacocoTestReport
+    
     The HTML report will be generated at app/build/reports/jacoco/jacocoTestReport/html/index.html. If the task name differs (e.g., for a specific build variant like debug), use the appropriate task (e.g., jacocoTestReportDebug).
 
 ## Build and Run Instructions
