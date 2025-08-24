@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization) // For kotlinx-serialization
     alias(libs.plugins.androidx.navigation) // For Navigation Compose
     alias(libs.plugins.androidx.room) // For Room database
+    alias(libs.plugins.hilt.gradle) // For Hilt
     id("kotlin-kapt")
     id("jacoco")
 
@@ -74,6 +75,11 @@ dependencies {
     implementation(libs.kotlinx.serialization.json) // Serialization
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
+    kapt(libs.hilt.compiler)
+    implementation(libs.datastore.preferences)
+    implementation(libs.datastore.core)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

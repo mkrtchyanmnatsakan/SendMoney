@@ -22,6 +22,9 @@ mockitoKotlin = "6.0.0"
 robolectric = "4.15.1"
 truth = "1.4.4"
 turbine = "1.2.1"
+hilt = "2.57.1"
+datastore = "1.1.7"
+hiltExt = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -56,7 +59,11 @@ mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", versio
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 google-truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 cash-turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
-
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltExt" }
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+datastore-core = { group = "androidx.datastore", name = "datastore-core", version.ref = "datastore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -66,4 +73,5 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 
 androidx-navigation = { id = "androidx.navigation.safeargs.kotlin", version.ref = "androidxNavigation" }
 androidx-room = { id = "androidx.room", version.ref = "androidxRoom" }
+hilt-gradle = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 

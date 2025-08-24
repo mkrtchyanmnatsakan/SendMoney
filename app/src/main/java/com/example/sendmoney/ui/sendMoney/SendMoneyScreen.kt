@@ -56,8 +56,10 @@ import com.example.sendmoney.data.models.Provider
 import com.example.sendmoney.data.models.Service
 import com.example.sendmoney.data.repository.RequestRepository
 import com.example.sendmoney.data.repository.ServicesRepository
+import com.example.sendmoney.data.session.UserSessionManager
 import com.example.sendmoney.db.AppDatabase
 import com.example.sendmoney.ui.component.CommonTopAppBarCenter
+import com.example.sendmoney.ui.navigation.Routes
 import com.example.sendmoney.ui.theme.SendMoneyAppTheme
 import kotlinx.coroutines.flow.collectLatest
 import java.util.Calendar
@@ -105,7 +107,8 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                 onExpandedChange = { serviceExpanded = !serviceExpanded }
             ) {
                 TextField(
-                    value = selectedService?.label?.get(locale) ?: stringResource(R.string.select_service),
+                    value = selectedService?.label?.get(locale)
+                        ?: stringResource(R.string.select_service),
                     onValueChange = {},
                     readOnly = true,
                     modifier = Modifier
@@ -199,12 +202,16 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                                 colors = TextFieldDefaults.colors(
                                     focusedTextColor = Color.Black,
                                 ),
-                                keyboardOptions = KeyboardOptions(keyboardType = if (field.type
-                                    == "msisdn") KeyboardType.Phone else KeyboardType.Text,
-                                    imeAction = ImeAction.Next),
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = if (field.type
+                                        == "msisdn"
+                                    ) KeyboardType.Phone else KeyboardType.Text,
+                                    imeAction = ImeAction.Next
+                                ),
 
-                            )
+                                )
                         }
+
                         "number" -> {
                             TextField(
                                 value = formData[field.name] ?: "",
@@ -216,14 +223,20 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                                 colors = TextFieldDefaults.colors(
                                     focusedTextColor = Color.Black,
                                 ),
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number,
-                                    imeAction = ImeAction.Next)
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = KeyboardType.Number,
+                                    imeAction = ImeAction.Next
+                                )
                             )
                         }
+
                         "option" -> {
                             var selectedOption by remember { mutableStateOf("") }
                             field.options?.let { options ->
-                                Text(text = field.label[locale] ?: "", style = MaterialTheme.typography.bodyMedium)
+                                Text(
+                                    text = field.label[locale] ?: "",
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
                                 options.forEach { option ->
                                     Row(
                                         modifier = Modifier.fillMaxWidth(),
@@ -241,12 +254,14 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                                 }
                             }
                         }
+
                         "date" -> {
                             val calendar = remember { Calendar.getInstance() }
                             val datePickerDialog = DatePickerDialog(
                                 context,
                                 { _: DatePicker, year: Int, month: Int, day: Int ->
-                                    formData[field.name] = String.format("%04d-%02d-%02d", year, month + 1, day)
+                                    formData[field.name] =
+                                        String.format("%04d-%02d-%02d", year, month + 1, day)
                                 },
                                 calendar.get(Calendar.YEAR),
                                 calendar.get(Calendar.MONTH),
@@ -277,7 +292,7 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                     }
                     if (errors[field.name] != null) {
                         Text(
-                            text = errors[field.name]?:"",
+                            text = errors[field.name] ?: "",
                             color = MaterialTheme.colorScheme.error,
                             style = MaterialTheme.typography.bodySmall
                         )
@@ -292,37 +307,58 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                     fields.forEach { field ->
                         showValidationError = false
                         val value = formData[field.name] ?: ""
-                        if (field.validation.isNotEmpty() && !value.matches(Regex(field.validation))) {
-                            errors[field.name] = field.validation_error_message?.get(locale) ?: "Invalid input"
+                        if (field.validation.isNotEmpty() && !value.matches(Regex(
+                                field.validation))) {
+                            errors[field.name] =
+                                field.validation_error_message?.get(locale) ?: "Invalid input"
                         } else if (value.isEmpty() && field.validation_error_message != null) {
-                            errors[field.name] = field.validation_error_message[locale] ?: "Required"
+                            errors[field.name] =
+                                field.validation_error_message[locale] ?: "Required"
                         }
                     }
                     if (errors.isEmpty() && fields.isNotEmpty()) {
                         showValidationError = false
                         viewModel.saveRequest(
-                            serviceName = selectedService?.label?.get(locale) ?: selectedService?.name ?: "",
+                            serviceName = selectedService?.label?.get(locale)
+                                ?: selectedService?.name ?: "",
                             providerName = selectedProvider?.name ?: "",
                             amount = formData["amount"]?.toDoubleOrNull() ?: 0.0,
                             formData = formData
                         )
-                    }else{
+                    } else {
                         showValidationError = fields.isEmpty()
                     }
                 },
                 shape = MaterialTheme.shapes.small,
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1E55F6)),
-                modifier = Modifier.fillMaxWidth().padding(start = 80.dp, end = 80.dp, top = 32.dp, bottom = 32.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 80.dp, end = 80.dp, top = 32.dp, bottom = 8.dp),
             ) {
                 Text(
                     modifier = Modifier.padding(6.dp),
-                    text = stringResource(R.string.submit))
+                    text = stringResource(R.string.submit)
+                )
             }
             Spacer(modifier = Modifier.height(8.dp))
-
-            if(showValidationError){
+            Button(
+                onClick = {
+                    viewModel.onLogoutClicked()
+                },
+                shape = MaterialTheme.shapes.small,
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1E55F6)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 80.dp, end = 80.dp, top = 8.dp, bottom = 16.dp),
+            ) {
+                Text(
+                    modifier = Modifier.padding(6.dp),
+                    text = stringResource(R.string.logout)
+                )
+            }
+            if (showValidationError) {
                 AlertDialog(
-                    onDismissRequest = { showValidationError = false},
+                    onDismissRequest = { showValidationError = false },
                     title = { Text(stringResource(R.string.warning)) },
                     text = { Text(stringResource(R.string.warning_message)) },
                     confirmButton = {
@@ -337,21 +373,23 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
                     onDismissRequest = {
                         viewModel.setSavedValue(false)
                         showSuccess = false
-                         },
+                    },
                     title = { Text(stringResource(R.string.success)) },
                     text = { Text(stringResource(R.string.request_saved)) },
                     confirmButton = {
                         Button(onClick = {
                             viewModel.setSavedValue(false)
                             showSuccess = false
-                            navController.navigate("savedRequests") }) {
+                            navController.navigate(Routes.SAVED_REQUESTS_SCREEN)
+                        }) {
                             Text(stringResource(R.string.yes))
                         }
                     },
                     dismissButton = {
                         Button(onClick = {
                             viewModel.setSavedValue(false)
-                            showSuccess = false }) {
+                            showSuccess = false
+                        }) {
                             Text(stringResource(R.string.no))
                         }
                     }
@@ -364,15 +402,19 @@ fun SendMoneyScreen(viewModel: SendMoneyViewModel, navController: NavController)
 @Preview(name = "Send Money Screen", showBackground = true)
 @Composable
 fun SendMoneyScreenPreview() {
-    val servicesRepository = ServicesRepository( LocalContext.current)
-    val requestRepository = RequestRepository(AppDatabase.getDatabase(LocalContext.current).requestDao())
+    val userSessionManager = UserSessionManager(LocalContext.current)
+    val servicesRepository = ServicesRepository(LocalContext.current)
+    val requestRepository =
+        RequestRepository(AppDatabase.getDatabase(LocalContext.current)
+            .requestDao())
     val sendMoneyViewModel: SendMoneyViewModel = viewModel(
         factory = SendMoneyViewModelFactory(
-            servicesRepository,
-            requestRepository
+            userSessionManager = userSessionManager,
+            servicesRepository = servicesRepository,
+            requestRepository = requestRepository
         )
     )
     SendMoneyAppTheme {
-        SendMoneyScreen(sendMoneyViewModel,rememberNavController())
+        SendMoneyScreen(sendMoneyViewModel, rememberNavController())
     }
 }

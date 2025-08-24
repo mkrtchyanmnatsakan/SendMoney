@@ -5,6 +5,7 @@ import com.example.sendmoney.data.models.Service
 import com.example.sendmoney.data.models.ServicesData
 import com.example.sendmoney.data.repository.RequestRepository
 import com.example.sendmoney.data.repository.ServicesRepository
+import com.example.sendmoney.data.session.UserSessionManager
 import com.example.sendmoney.db.RequestEntity
 import com.example.sendmoney.ui.sendMoney.SendMoneyViewModel
 import io.mockk.coEvery
@@ -25,9 +26,12 @@ class SendMoneyViewModelTest {
     private val requestRepository = mockk<RequestRepository>()
     private lateinit var viewModel: SendMoneyViewModel
 
+    private lateinit var userSessionManager : UserSessionManager
+
     @Before
     fun setup() {
         Dispatchers.setMain(Dispatchers.Unconfined)
+        userSessionManager = mockk()
         coEvery { servicesRepository.getServices() } returns ServicesData(
             title = mapOf("en" to "Send Money", "ar" to "إرسال الأموال"),
             services = listOf(
@@ -39,7 +43,10 @@ class SendMoneyViewModelTest {
             )
         )
         coEvery { requestRepository.insertRequest(any()) } returns Unit
-        viewModel = SendMoneyViewModel(servicesRepository, requestRepository)
+        viewModel = SendMoneyViewModel(
+            userSessionManager = userSessionManager,
+            servicesRepository = servicesRepository,
+            requestRepository = requestRepository)
     }
 
     @Test

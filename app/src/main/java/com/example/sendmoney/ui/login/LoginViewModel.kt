@@ -2,11 +2,19 @@ package com.example.sendmoney.ui.login
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.sendmoney.data.session.UserSessionManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class LoginViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val userSessionManager: UserSessionManager,
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
     companion object {
         private const val ERROR_KEY = "login_error_key"
@@ -23,6 +31,14 @@ class LoginViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel
         if (email == "testuser" && password == "password123") {
             _error.value = false
             savedStateHandle[ERROR_KEY] = false
+            viewModelScope.launch {
+                try {
+                    userSessionManager.updateLoginStatus(true)
+                    onSuccess()
+
+                } catch (e: Exception) {
+                }
+            }
             onSuccess()
         } else {
             _error.value = true

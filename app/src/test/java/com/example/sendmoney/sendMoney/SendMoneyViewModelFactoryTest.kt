@@ -3,6 +3,7 @@ package com.example.sendmoney.sendMoney
 import androidx.lifecycle.ViewModel
 import com.example.sendmoney.data.repository.RequestRepository
 import com.example.sendmoney.data.repository.ServicesRepository
+import com.example.sendmoney.data.session.UserSessionManager
 import com.example.sendmoney.ui.sendMoney.SendMoneyViewModel
 import com.example.sendmoney.ui.sendMoney.SendMoneyViewModelFactory
 import io.mockk.mockk
@@ -21,12 +22,18 @@ class SendMoneyViewModelFactoryTest {
 
     private lateinit var viewModelFactory: SendMoneyViewModelFactory
 
+    private lateinit var userSessionManager: UserSessionManager
+
     @Before
     fun setUp() {
         mockServicesRepository = mockk()
         mockRequestRepository = mockk()
+        userSessionManager = mockk()
 
-        viewModelFactory = SendMoneyViewModelFactory(mockServicesRepository, mockRequestRepository)
+        viewModelFactory = SendMoneyViewModelFactory(
+            userSessionManager = userSessionManager,
+            servicesRepository =  mockServicesRepository,
+            requestRepository =  mockRequestRepository)
     }
 
     @Test

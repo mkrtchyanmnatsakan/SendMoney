@@ -1,6 +1,7 @@
 package com.example.sendmoney.login
 
 import androidx.lifecycle.SavedStateHandle
+import com.example.sendmoney.data.session.UserSessionManager
 import com.example.sendmoney.ui.login.LoginViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -9,12 +10,16 @@ import org.junit.Before
 import org.junit.Test
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.setMain
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 
 class LoginViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
     private lateinit var savedStateHandle: SavedStateHandle
     private lateinit var viewModel: LoginViewModel
+    @Mock
+    private lateinit var mockUserSessionManager: UserSessionManager
 
     companion object {
         private const val ERROR_KEY = "login_error_key"
@@ -23,9 +28,12 @@ class LoginViewModelTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setUp() {
+        MockitoAnnotations.openMocks(this)
         Dispatchers.setMain(testDispatcher)
         savedStateHandle = SavedStateHandle()
-        viewModel = LoginViewModel(savedStateHandle)
+        viewModel = LoginViewModel(
+            userSessionManager = mockUserSessionManager,
+            savedStateHandle   = savedStateHandle)
     }
 
     @Test

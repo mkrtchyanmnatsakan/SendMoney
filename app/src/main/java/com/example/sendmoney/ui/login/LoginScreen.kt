@@ -54,7 +54,11 @@ import com.example.sendmoney.ui.theme.SendMoneyAppTheme
 @Composable
 @SuppressLint("LocalContextConfigurationRead")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
-fun LoginScreen(navController: NavController?, viewModel: LoginViewModel?) {
+fun LoginScreen(
+    navController: NavController?,
+    viewModel: LoginViewModel?,
+    onSuccessfulLoginNavigation: () -> Unit // Added lambda for navigation callback
+) {
     var username by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     val context = LocalContext.current
@@ -123,14 +127,15 @@ fun LoginScreen(navController: NavController?, viewModel: LoginViewModel?) {
                         username != "testuser",
                 supportingText = {
                     if (viewModel?.error?.collectAsState()?.value == true &&
-                        username != "testuser") {
+                        username != "testuser"
+                    ) {
                         Text(stringResource(R.string.invalid_username))
                     }
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(onDone = {
                     keyboardController?.hide()
-                    viewModel?.login(username, password) { navController?.navigate("sendMoney") }
+                    viewModel?.login(username, password, onSuccessfulLoginNavigation)
                 })
             )
             Spacer(modifier = Modifier.height(4.dp))
@@ -145,21 +150,24 @@ fun LoginScreen(navController: NavController?, viewModel: LoginViewModel?) {
                         password != "password123",
                 supportingText = {
                     if (viewModel?.error?.collectAsState()?.value == true &&
-                        password != "password123") {
+                        password != "password123"
+                    ) {
                         Text(stringResource(R.string.invalid_password))
                     }
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(onDone = {
                     keyboardController?.hide()
-                    viewModel?.login(username, password) { navController?.navigate("sendMoney") }
+                    viewModel?.login(username, password, onSuccessfulLoginNavigation)
                 })
             )
 
             Spacer(modifier = Modifier.height(64.dp))
             // Sign in button
             Button(
-                onClick = { viewModel?.login(username, password) { navController?.navigate("sendMoney") } },
+                onClick = {
+                    viewModel?.login(username, password, onSuccessfulLoginNavigation)
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp),
@@ -188,6 +196,9 @@ fun LoginScreen(navController: NavController?, viewModel: LoginViewModel?) {
 @Composable
 fun LoginScreenPreview() {
     SendMoneyAppTheme {
-        LoginScreen(null,null)
+        LoginScreen(
+            null,
+            null,
+            onSuccessfulLoginNavigation = {})
     }
 }
