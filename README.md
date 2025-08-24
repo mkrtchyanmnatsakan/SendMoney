@@ -85,7 +85,7 @@ The app aims to follow **Material Design 3** principles for UI/UX. This includes
     *   Connect an Android device (with USB debugging enabled) or start an Android Emulator.
     *   Click the "Run 'app'" button (green play icon) in Android Studio, or select **Run > Run 'app'**.
 
-## Screenshots
+## Screenshots/Video
 
 *   *Screenshot 1: Login Screen*
     * 1 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/login_1.jpeg?raw=true) 
@@ -103,6 +103,12 @@ The app aims to follow **Material Design 3** principles for UI/UX. This includes
     * 1 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/saved_requestes_1.jpeg?raw=true) 
     * 2 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/saved_requestes_2.jpeg?raw=true) 
     * 3 ![image_alt](https://github.com/mkrtchyanmnatsakan/SendMoney/blob/master/saved_requestes_3.jpeg?raw=true) 
+
+##  SEND MONEY VIDEO DEMO
+*   ** (video demo) **
+
+![Image](https://github.com/user-attachments/assets/6acdf049-4163-4053-8d91-a9a28de03458)
+![Image](https://github.com/user-attachments/assets/e2e0cbc2-46b0-4cc1-8965-d92f1eb050ae)
 
 
 
